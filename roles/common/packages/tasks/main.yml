@@ -1,0 +1,48 @@
+---
+# tasks file for ./roles/packages
+- name: main / Add the OS specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: main / Update yum packages
+  yum:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  loop:
+    - "git"
+    - "tree"
+    - "unzip"
+    - "which"
+    - "zip"
+  when: ansible_os_family == 'RedHat'
+
+# - name: Install SDKMAN
+#   include_tasks: install.yml
+#   when: ansible_os_family == 'RedHat'
+
+- name: Fetch SDKMAN!
+  uri:
+    url: https://get.sdkman.io
+    return_content: yes
+  register: get_sdkman_io
+  when: ansible_os_family == 'RedHat'
+
+- name: Install SDKMAN!
+  shell: "{{ get_sdkman_io.content }}"
+  when: ansible_os_family == 'RedHat'
+
+- name: SCRIPT SDKMAN!
+  shell: source "$HOME/.sdkman/bin/sdkman-init.sh"
+  when: ansible_os_family == 'RedHat'
+
+
+
+- name: main / Update apt packages
+  apt:
+    update_cache: yes
+  when: ansible_os_family == 'Debian'
+
+- name: main / Install the required packages
+  package:
+    name: "{{ required_packages }}"
+    state: present

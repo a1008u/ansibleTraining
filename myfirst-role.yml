@@ -1,0 +1,13 @@
+- name: my first role
+  hosts: target
+  # become: true
+
+  roles:
+    # - name: common/locale
+    #   tags: "locale"
+    - name: common/packages
+      tags: "packages"
+
+  post_tasks:
+    - name: Restart target nodes
+      shell: echo "enable server myapplb/{{ inventory_hostname }}"

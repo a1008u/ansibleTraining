@@ -1,0 +1,14 @@
+- hosts: target
+  tasks:
+  - name: Create Directory
+    file:
+        path: /root/tmp
+        state: directory
+        owner: root
+        mode: 0755
+  - name: copy file
+    copy:
+        src: ./test.txt
+        dest: /root/tmp/
+        owner: root
+        mode: 0644
