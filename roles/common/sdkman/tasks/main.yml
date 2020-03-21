@@ -1,0 +1,14 @@
+- name: Fetch SDKMAN!
+  uri:
+    url: "{{ sdkman_url }}"
+    return_content: yes
+  register: get_sdkman_io
+  when: ansible_os_family == 'RedHat'
+
+- name: Install SDKMAN!
+  shell: "{{ get_sdkman_io.content }}"
+  when: ansible_os_family == 'RedHat'
+
+- name: SCRIPT SDKMAN!
+  shell: source "$HOME/.sdkman/bin/sdkman-init.sh"
+  when: ansible_os_family == 'RedHat'

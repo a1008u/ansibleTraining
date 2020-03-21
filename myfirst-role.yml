@@ -1,12 +1,18 @@
 - name: my first role
   hosts: target
-  # become: true
+  become: true
 
   roles:
     # - name: common/locale
     #   tags: "locale"
     - name: common/packages
       tags: "packages"
+    - name: common/sdkman
+      tags: "sdkman"
+    - name: common/java
+      tags: "java"
+    - name: common/embulk
+      tags: "embulk"
 
   post_tasks:
     - name: Restart target nodes

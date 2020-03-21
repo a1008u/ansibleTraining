@@ -1,18 +1,33 @@
 version: '3'
 services:
-  ansible:
-    container_name: ansible 
-    build: docker/ansible
-    tty: true
-    working_dir: "/var/data"
-    volumes:
-      - .:/var/data
-  
-  target01:
-    container_name: target01
-    build: docker/target
-    tty: true
-  target02:
-    container_name: target02
-    build: docker/target
+  # ansible:
+  #   container_name: centos_ansible
+  #   build: docker/ansible/centos
+  #   privileged: true
+  #   tty: true
+  #   working_dir: "/var/data"
+  #   volumes:
+  #     - .:/var/data
+
+  # target01:
+  #   container_name: centos_target01
+  #   build: docker/target/centos
+  #   privileged: true
+  #   tty: true
+  #   volumes:
+  #     - ./docker/target/.zsh/.zshrc:/root/.zshrc
+  # target02:
+  #   container_name: centos_target02
+  #   build: docker/target/centos
+  #   privileged: true
+  #   tty: true
+  #   volumes:
+  #     - ./docker/target/.zsh/.zshrc:/root/.zshrc
+
+  airflow:
+    container_name: airflow-sample
+    build: docker/airflow
+    ports:
+      - "32:8080"
+    privileged: true
     tty: true

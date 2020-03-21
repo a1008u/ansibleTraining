@@ -16,27 +16,6 @@
     - "zip"
   when: ansible_os_family == 'RedHat'
 
-# - name: Install SDKMAN
-#   include_tasks: install.yml
-#   when: ansible_os_family == 'RedHat'
-
-- name: Fetch SDKMAN!
-  uri:
-    url: https://get.sdkman.io
-    return_content: yes
-  register: get_sdkman_io
-  when: ansible_os_family == 'RedHat'
-
-- name: Install SDKMAN!
-  shell: "{{ get_sdkman_io.content }}"
-  when: ansible_os_family == 'RedHat'
-
-- name: SCRIPT SDKMAN!
-  shell: source "$HOME/.sdkman/bin/sdkman-init.sh"
-  when: ansible_os_family == 'RedHat'
-
-
-
 - name: main / Update apt packages
   apt:
     update_cache: yes

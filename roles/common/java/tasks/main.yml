@@ -1,0 +1,7 @@
+- name: Java install
+  tags:
+    - java
+  become: true
+  yum:
+    name: java-{{ java_version }}-openjdk
+    state: latest

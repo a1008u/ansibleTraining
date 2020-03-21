@@ -1,0 +1,23 @@
+- name: embulk file check
+  tags:
+    - embulk
+    - embulk/install
+  command: test -f {{ embulk__path }}
+  register: Register__embulk_path
+  failed_when: Register__embulk_path.rc not in [0,1]
+
+- name: embulk download
+  tags:
+    - embulk
+    - embulk/install
+  become: true
+  when: "{{ Register__embulk_path.rc }} != 0"
+  get_url:
+    url: "{{ embulk__url }}"
+    dest: "{{ embulk__path }}"
+    mode: 0755
+    force: yes
+    # url={{ embulk__url }}
+    # dest={{ embulk__path }}
+    # mode=0755
+    # force=yes

@@ -1,0 +1,4 @@
+dependencies:
+  # - role: common/defaults
+  - role: common/packages
+    when: "{{ yum__packages | bool }} == true"
